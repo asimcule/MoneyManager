@@ -1,0 +1,52 @@
+{% extends "login/layout.html" %}
+
+{% block body %}
+Name: {{ user_data.name}}   
+<br>
+Salary: {{ user_data.salary}} 
+<br>
+Age: {{ user_data.age}} 
+<br>
+Occupation: {{ user_data.occupation}}
+<br>
+<br>
+<br>
+<br>
+
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{filter_form.as_p}}
+    <input type="submit" value="Submit" />
+</form>
+
+    <table class="zigzag">
+        <thead>
+        <tr>
+          <th class="header">Created</th>
+          <th class="header">Transaction Amount</th>
+          <th class="header">Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.created }}</td>
+          <td style="text-align: center"> {{ transaction.transaction_amount }} </td>
+          <td> {{ transaction.purpose}} </td>
+        </tr>
+        {% empty %}
+        Empty
+        {% endfor %}
+        </tbody>
+      </table>
+
+<br>
+<br>
+<br>
+
+<a href="{% url 'transaction' pk %}"> Transaction </a>
+<br>
+<br>
+<a href="{% url 'logout' %}"> Logout </a>
+{% endblock %}
