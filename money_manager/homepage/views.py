@@ -16,25 +16,19 @@ def homepage(request, pk):
     if len(user_details) == 0:
         print("Creating a new profile...........")
         return profile(request, pk, user_id)
-
     else:
-        filter_form = FilterForm()
         context['user_data'] = user_details.all()[0]
-        context['filter_form'] = filter_form
         if request.method == 'POST':
-            filter_form=FilterForm(request.POST)
-            print(filter_form['start_day'].value())
-            start_year = int(filter_form['start_year'].value())
-            start_month = int(filter_form['start_month'].value())
-            start_day = int(filter_form['start_day'].value())
-            end_year = int(filter_form['end_year'].value())
-            end_month = int(filter_form['end_month'].value())
-            end_day = int(filter_form['end_day'].value())
+            start_year = int(request.POST['start_year'])
+            start_month = int(request.POST['start_month'])
+            start_day = int(request.POST['start_day'])
+            end_year = int(request.POST['end_year'])
+            end_month = int(request.POST['end_month'])
+            end_day = int(request.POST['end_day'])
             print(start_day, end_day)
             start_date = datetime(year=start_year, month=start_month, day=start_day, hour=0, minute=0)
             end_date = datetime(year=end_year, month=end_month, day=end_day, hour=0, minute=0)
             transactions = Transactions.objects.filter(user_id=user_id['id']).order_by('-created').filter(created__date__range=[start_date, end_date])#ordered by latest time
-            # transactions = Transactions.objects.filter(user_id=user_id['id']).order_by('-created').filter(created__time__range=[start_date, end_date])#ordered by latest time
         else:
             transactions = Transactions.objects.filter(user_id=user_id['id']).order_by('-created')
         
@@ -44,6 +38,7 @@ def homepage(request, pk):
             context['transactions'] = None
 
     return render(request, 'homepage/homepage.html', context)
+
 
 
 @login_required(login_url="login/")
@@ -58,6 +53,7 @@ def transaction(request, pk):
         return homepage(request, pk)
     else:
         return render(request, f'homepage/transaction.html', {'form':form})
+
 
 
 @login_required(login_url="login/")
