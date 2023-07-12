@@ -4,6 +4,6 @@
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Submit" />
+    <input type="submit" name="transaction_add"/>
 </form>
 {% endblock %}

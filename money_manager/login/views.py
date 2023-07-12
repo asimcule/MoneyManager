@@ -29,7 +29,7 @@ def login_user(request):
         
         if user is not None:
             login(request, user)    # Attaches a session to the user
-            return redirect(f'/homepage/{username}')
+            return redirect('homepage/')
         
         else:
             return render(request, 'login/login.html')

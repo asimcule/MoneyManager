@@ -135,7 +135,7 @@ Occupation: {{ user_data.occupation}}
 
 <br>
 
-<input type="submit" value="Submit" />
+<input type="submit" name="transaction_filter"/>
 </form>
 
 
@@ -169,7 +169,7 @@ Occupation: {{ user_data.occupation}}
 <br>
 <br>
 
-<a href="{% url 'transaction' pk %}"> Transaction </a>
+<a href="{% url 'transaction' %}"> Transaction </a>
 <br>
 <br>
 <a href="{% url 'logout' %}"> Logout </a>
